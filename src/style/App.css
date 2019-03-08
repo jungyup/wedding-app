@@ -1,0 +1,26 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.row {
+    height: 400px;
+    padding: 20px;
+}
+
+.item.infoBtn, .item.photoBtn, .item.rsvpBtn {
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    opacity: 0.6;
+    border: 2px solid #fda287;
+    border-radius: 8px;
+}
+
+.item.infoBtn:hover, .item.photoBtn:hover, .item.rsvpBtn:hover {
+    background-color: #fda287;
+    color: white;
+    opacity: 1;
+}
+
+.ui.three.item.menu {
+   margin: 20px;
+}
