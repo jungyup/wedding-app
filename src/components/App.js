@@ -1,10 +1,14 @@
 import React from 'react';
+import axios from 'axios';
 
+import Header from './Header';
+import Home from './Home';
 import Info from './Info';
+import Location from './Location';
 import Photo from './Photo';
 import Rsvp from './Rsvp';
 
-import '../style/App.css'
+import '../style/App.css';
 
 class App extends React.Component {
 
@@ -14,20 +18,13 @@ class App extends React.Component {
         this.state = { };
     }
 
-    moveDiv = (name) => {
-        
-        if (name === "info") {
-            document.body.scrollTop = 400;
-            document.documentElement.scrollTop = 400;
-        } else if (name === "photo") {
-            document.body.scrollTop = 800;
-            document.documentElement.scrollTop = 800;
-        } else if (name === "rsvp") {
-            document.body.scrollTop = 1200;
-            document.documentElement.scrollTop = 1200;
-        }
-        
+    onSearchSubmit = (term) => {
+        axios.get('http://localhost:1005/rsvps?name=' + term)
+        .then(res => {
+            console.log(res.data);
+        });
     }
+    
 
     render() {
 
@@ -35,26 +32,19 @@ class App extends React.Component {
 
         return (
             <section className="mb-0">
-                <div className="ui container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <h2 className="text-center">This is main page</h2>
-                            <div className="ui three item menu">
-                                <button className="item infoBtn" onClick={() => this.moveDiv("info")}>Information</button>
-                                <button className="item photoBtn" onClick={() => this.moveDiv("photo")}>Photo</button>
-                                <button className="item rsvpBtn" onClick={() => this.moveDiv("rsvp")}>RSVP</button>
-                            </div>
-                        </div>
-                    </div>
+                <Header />
+                <Home />
+                
                     <Info />
+                    <Location />
                     <Photo />
-                    <Rsvp />
+                    <Rsvp onSubmit={this.onSearchSubmit} />
                     <div className="row">
                         <div className="col-lg-12">
-                            <h2 className="text-center">This is Footer section.</h2>
+                            <h2 className="ui header text-center" style={{ color: '#fda287' }}>This is Footer section.</h2>
                         </div>
                     </div>
-                </div>
+                
                 
             </section>
         );

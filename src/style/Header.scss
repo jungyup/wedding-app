@@ -1,0 +1,41 @@
+#home {
+    background-image: url("https://post-phinf.pstatic.net/MjAxODAxMThfMTcw/MDAxNTE2MjUyMTM2Nzc5.1KITNbuFaNLcd_cLT6jxrurbO4QkBSbn8RZw_TQlzogg.Q6XjhDEyyufhA1n-GVc-VeX0gsHJA4U89cHBCJTgL9Yg.PNG/%EA%B2%B0%ED%98%BC%EA%B0%90%EC%82%AC%EC%9D%B8%EC%82%AC%EB%A7%90_%286%29.png?type=w1200");
+    background-size: cover;
+    height: 800px;
+}
+
+.navbar {
+    transition: 200ms linear;
+}
+
+nav {
+    a {
+        color: white;
+    }
+    div {
+        li {
+            a {
+                color: white;
+            }
+        }
+    }
+    
+}
+
+.message {
+    color: #b1afaf;
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Pacifico', cursive;
+}
+
+.mainIcon {
+    color: pink;
+    margin-left: 500px;
+    margin-top: 50%;
+    animation: mover 1s infinite alternate;
+}
+@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}

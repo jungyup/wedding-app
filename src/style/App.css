@@ -2,14 +2,31 @@ html {
     scroll-behavior: smooth;
 }
 
-.row {
+/* .row {
     height: 400px;
     padding: 20px;
+} */
+
+.spacer {
+    height: 50px;
+}
+
+.ui.three.item.menu {
+    border: none;
+    box-shadow: none;
+}
+
+.ui.menu .item {
+    transition-property: background-color color;
+    transition-duration: 0.4s;
+    color: #c9806a;
+}
+
+.ui.menu > .item:first-child {
+    border-radius: 8px;
 }
 
 .item.infoBtn, .item.photoBtn, .item.rsvpBtn {
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
     opacity: 0.6;
     border: 2px solid #fda287;
     border-radius: 8px;
@@ -23,4 +40,9 @@ html {
 
 .ui.three.item.menu {
    margin: 20px;
+}
+
+.image {
+    border: 2px solid #fda287;
+    margin: auto;
 }

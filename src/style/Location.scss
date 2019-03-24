@@ -1,0 +1,43 @@
+#location {
+    background-color:#F8D0D0;
+}
+
+// .ld-left {
+//     width: 100%;
+//     margin-left: auto;
+//     margin-right: auto;
+//     display: block;
+// }
+
+.line {
+    display: inline-block;
+    width: 90px;
+    height: 1px;
+    background-color: #80bdff;
+    margin: auto;
+}
+
+#columbus {
+    width: 80%;
+    height: 80%;
+    margin-left: 10%;
+    border-radius: 10px;
+}
+
+.lm-title, .lm-content {
+    text-align: center;
+    color: #555;
+}
+
+.react-add-to-calendar__wrapper, .react-add-to-calendar__dropdown {
+    text-align: center;
+    color: #555;
+    cursor: pointer;
+    a {
+        color: #555;
+    }
+    ul {
+        list-style-type: none;
+        margin-right: 10%;
+    }
+}
