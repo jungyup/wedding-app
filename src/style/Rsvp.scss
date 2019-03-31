@@ -1,3 +1,11 @@
 #rsvp {
     background-color:#F8D0D0;
 }
+
+div.ui.search {
+  width: 1000px;
+  margin: auto;
+  .ui.icon.input {
+    width: inherit;
+  }
+}

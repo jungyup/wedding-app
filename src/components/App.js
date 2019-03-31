@@ -15,20 +15,21 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { };
+        this.state = { data: [] };
     }
 
-    onSearchSubmit = (term) => {
-        axios.get('http://localhost:1005/rsvps?name=' + term)
-        .then(res => {
-            console.log(res.data);
-        });
-    }
+    // onSearchSubmit = (term) => {
+    //     axios.get('http://localhost:1005/rsvps?name=' + term)
+    //     .then(res => {
+    //         this.setState({ data: res.data });
+    //         console.log(res.data);
+    //     });
+    // }
     
-
     render() {
 
         console.log(document.body.scrollHeight);
+        const name = 'asdasd';
 
         return (
             <section className="mb-0">
@@ -38,7 +39,7 @@ class App extends React.Component {
                     <Info />
                     <Location />
                     <Photo />
-                    <Rsvp onSubmit={this.onSearchSubmit} />
+                    <Rsvp />
                     <div className="row">
                         <div className="col-lg-12">
                             <h2 className="ui header text-center" style={{ color: '#fda287' }}>This is Footer section.</h2>
