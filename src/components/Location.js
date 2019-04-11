@@ -1,6 +1,5 @@
 /* global google */
 import React from 'react';
-//import GoogleMapReact from 'google-map-react';
 import AddToCalendar from 'react-add-to-calendar';
 
 import '../style/Location.scss';
@@ -40,7 +39,7 @@ class Location extends React.Component {
     
             // Load the Google Maps API
             const script = document.createElement("script");
-            const API = 'temp';
+            const API = 'AIzaSyBwrJ2EGsuQXGXjPKR1muBRpMsbvXD1HtY';
             script.src = `https://maps.googleapis.com/maps/api/js?key=${API}&callback=resolveGoogleMapsPromise`;
             script.async = true;
             document.body.appendChild(script);

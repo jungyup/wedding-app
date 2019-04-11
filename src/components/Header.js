@@ -25,20 +25,6 @@ class Header extends React.Component {
         this.setState({ isTop });
     }
 
-    // moveDiv = (name) => {
-        
-    //     if (name === "info") {
-    //         document.body.scrollTop = 400;
-    //         document.documentElement.scrollTop = 400;
-    //     } else if (name === "photo") {
-    //         document.body.scrollTop = 800;
-    //         document.documentElement.scrollTop = 800;
-    //     } else if (name === "rsvp") {
-    //         document.body.scrollTop = 1200;
-    //         document.documentElement.scrollTop = 1200;
-    //     }
-    // }
-
     render() {
         return (
             <nav className="navbar navbar-expand-lg fixed-top" style={this.state.isTop ? {backgroundColor: 'transparent'} : {backgroundColor: 'pink', borderBottom: '2px solid white'}}>

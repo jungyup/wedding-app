@@ -2,10 +2,44 @@
     background-color:#F8D0D0;
 }
 
+.searchName {
+  display: flex;
+}
+
 div.ui.search {
-  width: 1000px;
+  width: 99%;
   margin: auto;
   .ui.icon.input {
     width: inherit;
   }
+  .results {
+    border-radius: 15px;
+  }
+}
+
+.fields {
+  width: 100%;
+  margin: auto;
+}
+
+.confirmForm, .guestForm {
+  width: 100%;
+}
+
+.confirmField, .guestField {
+  width: 20%;
+}
+
+#guest_name {
+  margin-bottom: 5px;
+}
+
+.ui.button.nameBtn {
+  padding: 5px;
+  border-radius: 35px;
+  width: 20%;
+}
+
+.submitBtn {
+  width: 100%;
 }

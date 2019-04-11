@@ -9,7 +9,6 @@ class PhotoCard extends React.Component {
         this.state = { spans: 0 };
 
         this.photoRef = React.createRef();
-        // console.log(this.photoRef);
     }
 
     componentDidMount() {
