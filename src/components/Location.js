@@ -39,7 +39,7 @@ class Location extends React.Component {
     
             // Load the Google Maps API
             const script = document.createElement("script");
-            const API = 'AIzaSyBwrJ2EGsuQXGXjPKR1muBRpMsbvXD1HtY';
+            const API = 'Secret';
             script.src = `https://maps.googleapis.com/maps/api/js?key=${API}&callback=resolveGoogleMapsPromise`;
             script.async = true;
             document.body.appendChild(script);

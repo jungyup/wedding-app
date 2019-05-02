@@ -24,7 +24,7 @@ const Photo = () => {
             <div className="spacer"></div>
             <div className="ui container">
                 <div className="row">
-                    <div className="col-lg-12">
+                    <div className="col-lg-12 photo-div">
                         <h2 className="ui header text-center" style={{ color: '#fda287' }}>This is Photo Page.</h2>
                         <div className="photo-list">{photoLists}</div>
                     </div>

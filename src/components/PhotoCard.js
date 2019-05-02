@@ -1,6 +1,18 @@
 import React from 'react';
 import ExifOrientationImg from 'react-exif-orientation-img';
 
+// const PhotoCard = (props) => {
+
+//     return (
+//         <div className="col-lg-3" style={{ display: 'flex', width: '30%', height: '30%' }}>
+//                 <img
+//                     alt=""
+//                     src={props.photo}
+//                 />
+//         </div>
+//     )
+// }
+
 class PhotoCard extends React.Component {
 
     constructor(props) {
@@ -27,7 +39,7 @@ class PhotoCard extends React.Component {
     render() {
         
         return (
-            <div style={{ gridRowEnd: `span ${this.state.spans}` }}>
+            <div className="col-lg-2 item">
                 <img
                     ref={this.photoRef}
                     alt=""

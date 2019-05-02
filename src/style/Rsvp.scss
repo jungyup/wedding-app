@@ -30,7 +30,7 @@ div.ui.search {
   width: 20%;
 }
 
-#guest_name {
+.guest_name_field {
   margin-bottom: 5px;
 }
 
@@ -42,4 +42,32 @@ div.ui.search {
 
 .submitBtn {
   width: 100%;
+}
+
+.dimmed.dimmable > .ui.modals.dimmer.visible {
+  display: flex !important;
+}
+
+.ui.modal {
+  position: relative;
+  >.actions {
+    margin-top: 15%;
+    border-top: #FFF;
+    background: #FFF;
+  }
+}
+
+.visible {
+  .transition {
+    margin-top: auto !important;
+    display: inline-block !important;
+    position: relative;
+    top: 20%;
+  }
+  
+  .active {
+    height: 50%;
+    margin: auto;
+    margin-bottom: 20%;
+  }
 }

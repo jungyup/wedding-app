@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
-import { Search, Button, Form } from 'semantic-ui-react';
+import { Search, Button, Header, Modal, Form } from 'semantic-ui-react';
 
 import '../style/Rsvp.scss';
+
+let menuData = [];
 
 class Rsvp extends React.Component {
     
@@ -15,7 +17,10 @@ class Rsvp extends React.Component {
             results: [],
             value: '',
             confirmation: '',
-            guestNum: 0
+            rsvpId: 0,
+            guestNum: 0,
+            guestName: [],
+            open: false
         };
 
         this.formRef = React.createRef();
@@ -39,24 +44,18 @@ class Rsvp extends React.Component {
         this.setState({ isLoading: true, value })
 
         setTimeout(() => {
-        if (this.state.value.length < 1) {
-            this.resetComponent();
-            this.formRef.current.style.display = 'none';
-        }
-        
-        this.setState({
-            isLoading: false,
-            results: this.onSearchSubmit(value)
-        })
+            if (this.state.value.length < 1) {
+                this.resetComponent();
+                this.formRef.current.style.display = 'none';
+                this.guestFormRef.current.style.display = 'none';
+            }
+            
+            this.setState({
+                isLoading: false,
+                results: this.onSearchSubmit(value)
+            })
         }, 300)
     }
-
-    // onFormSubmit = (event) => {
-    //     event.preventDefault();
-
-    //     console.log(this.state);
-    //     this.props.onSubmit(this.state.term);
-    // }
 
     inputOnChange = (event) => {
         console.log(event.target.value);
@@ -87,14 +86,102 @@ class Rsvp extends React.Component {
             }
         }).then(res => {
             console.log(res);
+            this.setState({ rsvpId: res.data.id });
         }).catch(error => {
             console.error(error);
         })
+
+        if (this.state.confirmation === 'yes') {
+            this.guestFormRef.current.style.display = 'inline';
+        }
+
+        //alert("Your RVSP confirmation saved. Thank You!");
     }
 
-    onSelectChange = (event, data) => {
+    onGuestSubmit = () => {
+        let guestData = [];
+        //let guestName = [];
+        for (let i = 0; i < this.state.guestNum; i++) {
+            guestData.push({
+                id: this.state.rsvpId,
+                guestName: document.getElementById("guest_name" + i).value,
+                menu: menuData[i]                
+            });
+        }
+        console.log(this.state.rsvpId);
+        if (guestData[0].id !== 0) {
+            axios.post('http://localhost:1005/guest', {
+            guestData
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                console.log(res);
+                for (let i = 0; i < res.data.length; i++) {
+                    if (res.data[i].success === false) {
+                        alert("The Guest named " + res.data[i].guestName + " is already in database!");
+                        //this.setState({ open: true });
+                        // return <Modal 
+                        //         open={this.state.open}
+                        //         header="Warning!"
+                        //         content="Guest is already in database"
+                        //         actions={{ key: 'done', content: 'Done', positive: true }}
+                        //         />
+                    }
+                    else {
+                        alert("Your Guest informations are saved. Thank you!");
+                        // this.setState({ open: true });
+                        // return <Modal 
+                        //         open={this.state.open}
+                        //         header="Confirmed!!"
+                        //         content="Guest is saved"
+                        //         actions={['Snooze', { key: 'done', content: 'Done', positive: true }]}
+                        //         />
+                    }
+                }
+            }).catch(error => {
+                console.error(error);
+            })
+        } else {
+            console.error("guest rsvp id is missing");
+        }
+        
+        // this.setState({ value: '' });
+        // console.log(document.getElementsByClassName('guest_name_field').value);
+        // this.formRef.current.style.display = 'none';
+        // this.guestFormRef.current.style.display = 'none';
+    }
+
+    temp = () => {
+        this.setState({ open: false });
+        // if (this.state.open === true) {
+        //     return <Modal 
+        //             open={this.state.open}
+        //             header="Warning!"
+        //             content="Guest is already in database"
+        //             actions={{ key: 'done', content: 'Done', positive: true }}
+        //             />
+        // } else {
+        //     return <Modal 
+        //             open={this.state.open}
+        //             header="Confirmed!!"
+        //             content="Guest is saved"
+        //             actions={['Snooze', { key: 'done', content: 'Done', positive: true }]}
+        //             />
+        // }
+    }
+
+    onAttendChange = (event, data) => {
         console.log(data);
         this.setState({ confirmation: data.value });
+    }
+
+    onMenuChange = (event, data) => {
+        console.log(data);
+        this.setState({ menu: data.value });
+        console.log(document.getElementById("menuId"));
+        console.log(document.getElementById("guestNum"));
     }
 
     submitButton = () => {
@@ -118,16 +205,30 @@ class Rsvp extends React.Component {
 
     render() {
         const { isLoading, value, results } = this.state;
-        const options = [
+        const attendOptions = [
             { key: 'y', text: 'Attending', value: 'yes' },
             { key: 'n', text: 'Not Attending', value: 'no' }
         ]
+        const menuOptions = [
+            { key: 'c', text: 'Chicken', value: 'chicken' },
+            { key: 's', text: 'Steak', value: 'steak'}
+        ]
 
         let inputField = [];
+        let menuField = [];
         
         // Populate input field for guest name
         for (let i = 0; i < this.state.guestNum; i++) {
-            inputField.push(<input type="text" id="guest_name" placeholder="Guest Name" key={i} />);
+            let inputId = "guest_name" + i;
+            inputField.push(<input type="text" className="guest_name_field" id={inputId} placeholder="Guest Name" key={i} style={{ marginBottom: '5px'}} />);
+        }
+
+        for (let i = 0; i < this.state.guestNum; i++) {
+            menuField.push(<Form.Select fluid onChange={(e, data) => {
+                menuData[i] = data.value;
+                console.log(menuData);
+            }} options={menuOptions} placeholder="Please Select Menu" key={i} style={{ marginBottom: '5px'}} />
+            )
         }
 
         return (
@@ -158,19 +259,24 @@ class Rsvp extends React.Component {
                                     <div className="fields">
                                         <div className="field confirmForm">
                                             <label>Name</label>
-                                            <input type="text" value={this.state.value} disabled />
+                                            <input type="text" value={value} disabled />
                                         </div>
                                         <div className="field confirmForm">
-                                            <Form.Select fluid label="Attend" onChange={this.onSelectChange} options={options} placeholder="Are You Attending?" />
+                                            <Form.Select fluid label="Attend" onChange={this.onAttendChange} options={attendOptions} placeholder="Are You Attending?" />
                                         </div>
                                         <div className="field confirmField">
                                             <label>Confirmation</label>
-                                            <Button className="confirmBtn" onClick={this.onConfirmationSubmit}>Confirm</Button>
+                                            <Modal 
+                                                trigger={<Button className="confirmBtn" onClick={this.onConfirmationSubmit}>Confirm</Button>}
+                                                header="Confirmed!"
+                                                content="Your confirmation is saved. Thank you!"
+                                                actions={[{ key: 'done', content: 'Done', positive: true }]}
+                                            />
                                         </div>
                                     </div>
                             </div>
 
-                            <div className="ui form" ref={this.guestFormRef}>
+                            <div className="ui form" ref={this.guestFormRef} style={{ display: 'none' }}>
                                 <h4 className="ui dividing header text-center">Please Enter Guest Information If You Have (Optional)</h4>
                                 <div className="fields">
                                     <div className="field guestForm">
@@ -182,11 +288,23 @@ class Rsvp extends React.Component {
                                     </div>
                                     <div className="field guestForm">
                                         <label>Guest Name</label>
-                                        {inputField}
+                                        {this.state.guestNum === 0 ? (<input type="text" disabled />) : inputField}
+                                    </div>
+                                    <div className="field guestForm">
+                                        <label>Menu</label>
+                                        {this.state.guestNum === 0 ? (<input type="text" disabled />) : menuField}
                                     </div>
                                     <div className="field guestField">
                                         <label>Confirmation</label>
                                         <Button className="guestBtn" onClick={this.onGuestSubmit}>Confirm</Button>
+                                        
+                                        {/* <Modal 
+                                            open={this.state.open}
+                                            onClose={this.temp}
+                                            header="Confirmed!!"
+                                            content="Guest is saved"
+                                            actions={{ key: 'done', content: 'Done', positive: true }}
+                                        /> */}
                                     </div>
                                 </div>
                             </div>
