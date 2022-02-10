@@ -5,7 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "react": "^16.8.3",
     "react-add-to-calendar": "^0.1.5",
     "react-dom": "^16.8.3",
